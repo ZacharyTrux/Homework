@@ -1,7 +1,8 @@
 #####################################################################
 # author: Zachary Truxillo      
-# date:         
-# description:  
+# date: 4/16/2024        
+# description:  Creates a simple employee parent class which shows off the use 
+# of inheritance and child classes. Also uses an abstract method to show off use of that concept.
 #####################################################################
 
 # import the abc library to make abstract classes
@@ -19,6 +20,7 @@ class Employee(ABC):
         self.firstname = firstname
         self.lastname = lastname
         self.pay = pay
+        # calls function which follows a set path of making a default email
         self.email = self.createEmail()
         self.position = None
     
@@ -27,10 +29,12 @@ class Employee(ABC):
         return self._firstname
     @firstname.setter
     def firstname(self,value):
+        # account for errors users might make in creating name
         value = value.strip()
         value = value.capitalize()
-        
-        if(len(value)>1):
+        # corrects the rest of the name to follow a format, 
+        # also confirming the number of characters in name
+        if(len(value) > 1):
             value = value[0] + value[1:].lower()
 
         self._firstname = value
@@ -40,9 +44,11 @@ class Employee(ABC):
         return self._lastname
     @lastname.setter
     def lastname(self,value):
+        #account for errors users might make in creating name
         value = value.strip()
         value = value.capitalize()
-        
+        # corrects the rest of the name to follow a format, 
+        # also confirming the number of characters in name
         if(len(value)>1):
             value = value[0] + value[1:].lower()
 
@@ -54,6 +60,7 @@ class Employee(ABC):
         return self._pay
     @pay.setter
     def pay(self,value):
+        # account for users who put a pay below 20000
         if(value>=20000):
             self._pay = value
         else:
@@ -64,8 +71,10 @@ class Employee(ABC):
         return self._email
     @email.setter
     def email(self,string):
+        # confirm the email is correct
         if ("@latech.edu" in string):
             self._email = string
+        # correct the error otherwise
         else:
             self._email = self.createEmail()
             
@@ -76,10 +85,12 @@ class Employee(ABC):
     def position(self,string):
         self._position = string     
             
-            
+    # follow format of how email is supposed to look        
     def createEmail(self):
         return (f"{self.firstname.lower()}.{self.lastname.lower()}@latech.edu")
     
+    # uses abstract method to stop users from giving employee 
+    # a raise and not specific type of employee
     @abstractmethod
     def applyRaise(self,rate):
         raise NotImplementedError
@@ -102,16 +113,18 @@ class Employee(ABC):
 ######################################################################
 class Faculty(Employee):
     def __init__(self,firstname,lastname,position):
-        super().__init__(firstname,lastname,pay=50000)
+        super().__init__(firstname,lastname,pay = 50000)
         self.position = position
         self.pay = 50000
         
     def applyRaise(self,rate):
-        if(rate>0):
+        # account for users who put in incorrect rate
+        if(rate > 0):
             self.pay *= rate
         else: 
             pass
-        
+    
+    # fix string function to also show what position the faculty is in    
     def __str__(self):
         return super().__str__() + f" -- {self.position}"
         
@@ -129,7 +142,7 @@ class Staff(Employee):
         self.pay = 40000
         
     def applyRaise(self,rate):
-        if(rate>0):
+        if(rate > 0):
             self.pay += rate
         else:
             pass
