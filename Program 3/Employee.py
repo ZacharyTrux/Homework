@@ -14,13 +14,13 @@ from abc import ABC, abstractmethod
 # that creates an appropriate email address from the employee's first
 # and last names.
 ######################################################################
-class Employee:
+class Employee(ABC):
     def __init__(self,firstname,lastname,pay):
         self.firstname = firstname
         self.lastname = lastname
         self.pay = pay
-        self.email = ""
-        self.positon = None
+        self.email = self.createEmail()
+        self.position = None
     
     @property
     def firstname(self):
@@ -64,16 +64,27 @@ class Employee:
         return self._email
     @email.setter
     def email(self,string):
-        
-        if "@latech.edu" in string:
-            pass
-    
+        if ("@latech.edu" in string):
+            self._email = string
+        else:
+            self._email = self.createEmail()
+            
+    @property
+    def position(self):
+        return self._position
+    @position.setter
+    def position(self,string):
+        self._position = string     
+            
+            
     def createEmail(self):
-        self._email = f"{self.firstname.lower()}.{self.lastname.lower()}@latech.edu"
+        return (f"{self.firstname.lower()}.{self.lastname.lower()}@latech.edu")
     
-    @ABC.abstractmethod
+    @abstractmethod
     def applyRaise(self,rate):
-        raise NotImplementedError()
+        raise NotImplementedError
+        '''Can not give an Employee a raise'''
+        
     
     def __str__(self):
         s = f"{self.lastname}, {self.firstname} ({self.email})"     
@@ -91,7 +102,8 @@ class Employee:
 ######################################################################
 class Faculty(Employee):
     def __init__(self,firstname,lastname,position):
-        super().__init__(firstname,lastname,position)
+        super().__init__(firstname,lastname,pay=50000)
+        self.position = position
         self.pay = 50000
         
     def applyRaise(self,rate):
@@ -101,7 +113,7 @@ class Faculty(Employee):
             pass
         
     def __str__(self):
-        return super().__str__() + f"- {self.position}"
+        return super().__str__() + f" -- {self.position}"
         
         
 
@@ -113,7 +125,7 @@ class Faculty(Employee):
 ######################################################################
 class Staff(Employee):
     def __init__(self,firstname,lastname):
-        super().__init__(firstname,lastname)
+        super().__init__(firstname,lastname,pay = 40000)
         self.pay = 40000
         
     def applyRaise(self,rate):
