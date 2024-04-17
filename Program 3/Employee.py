@@ -115,7 +115,6 @@ class Faculty(Employee):
     def __init__(self,firstname,lastname,position):
         super().__init__(firstname,lastname,pay = 50000)
         self.position = position
-        self.pay = 50000
         
     def applyRaise(self,rate):
         # account for users who put in incorrect rate
@@ -139,7 +138,6 @@ class Faculty(Employee):
 class Staff(Employee):
     def __init__(self,firstname,lastname):
         super().__init__(firstname,lastname,pay = 40000)
-        self.pay = 40000
         
     def applyRaise(self,rate):
         if(rate > 0):
