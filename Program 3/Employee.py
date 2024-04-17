@@ -61,7 +61,7 @@ class Employee(ABC):
     @pay.setter
     def pay(self,value):
         # account for users who put a pay below 20000
-        if(value>=20000):
+        if(value >= 20000):
             self._pay = value
         else:
             self._pay = 20000
