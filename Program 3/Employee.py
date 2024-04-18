@@ -47,10 +47,6 @@ class Employee(ABC):
         #account for errors users might make in creating name
         value = value.strip()
         value = value.capitalize()
-        # corrects the rest of the name to follow a format, 
-        # also confirming the number of characters in name
-        if(len(value)>1):
-            value = value[0] + value[1:].lower()
 
         self._lastname = value
     
@@ -145,4 +141,3 @@ class Staff(Employee):
         else:
             pass
         
-
