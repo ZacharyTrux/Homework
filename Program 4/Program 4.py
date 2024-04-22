@@ -3,7 +3,7 @@ from Constants import *
 
 class Entity:
     def __init__(self):
-        self.lives = 3
+        pass
        
     
     def goLeft(self,value=1):
@@ -12,12 +12,8 @@ class Entity:
         self.x += value
     def goUp(self,value=1):
         self.y -= value
-        
-    def shoot(self):
-        self.surf = pygame.Surface((1,1))
-        self.surf.fill(WHITE)
-        
-        
+    
+    
     @property
     def x(self):
         return self._x
@@ -68,21 +64,22 @@ class Spider(Entity):
             self.x = 0
             self.lives -= 1
 '''
-class Bullet:
+class Bullet(Entity):
     def __init__(self,x,y):
-        self.surf = pygame.Surface((1,1))
-        self.surf.fill(WHITE)
+        self.surf = pygame.Surface((2,1))
+        self.surf.fill(BLACK)
         self.y = y
         self.x = x
     
     def update(self):
-        self.y -= 1
+        self.goUp()
         
 
-class Wizard(Entity,Bullet):
+class Wizard(Entity):
+    lives = 3
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("Program 4/Images/wizard.png").convert()
+        self.image = pygame.image.load("Program 4/Images/wizard.png").convert_alpha()
         self.image.set_colorkey((0,0,0), RLEACCEL)
         self.image = pygame.transform.scale(self.image,(150,150))
         self.y = HEIGHT - self.image.get_size()[1]
@@ -118,8 +115,7 @@ class Wizard(Entity,Bullet):
         Left_y = self.y - self.size/2
         return Left_x, Left_y
 
-class StartGame:
-    pass
+
     
 
 ################## MAIN ########################
@@ -149,8 +145,9 @@ while (RUNNING):
     w.update(pressedKeys)
 
     # fill the screen with a color
-    screen.fill(BLACK)
+    screen.fill(WHITE)
     # then transfer the person to the screen
     screen.blit(w.image, w.getPosition())
+    #Spider.draw(screen)
     pygame.display.flip()
 
