@@ -2,11 +2,21 @@ import pygame
 from Constants import *
 
 class Entity:
-    def __init__(self,x,y,size):
-        self.x = x
-        self.y = y
-        self.size = size
+    def __init__(self):
         self.lives = 3
+       
+    
+    def goLeft(self,value=1):
+        self.x -= value
+    def goRight(self,value=1):
+        self.x += value
+    def goUp(self,value=1):
+        self.y -= value
+        
+    def shoot(self):
+        self.surf = pygame.Surface((1,1))
+        self.surf.fill(WHITE)
+        
         
     @property
     def x(self):
@@ -37,10 +47,8 @@ class Entity:
         return self._size
     @size.setter
     def size(self,value):
-        if(value >= 1):
-            self._size = value 
-        else:
-            pass
+        self._size = value 
+        
 '''
 class Spider(Entity):
     def __init__(self):
@@ -60,18 +68,26 @@ class Spider(Entity):
             self.x = 0
             self.lives -= 1
 '''
-class Bullet(Entity):
-    def __init__(self):
-        super().__init__(self,x=600,y=0)
-            
-    def shoot(self):
-        pass
+class Bullet:
+    def __init__(self,x,y):
+        self.surf = pygame.Surface((1,1))
+        self.surf.fill(WHITE)
+        self.y = y
+        self.x = x
+    
+    def update(self):
+        self.y -= 1
         
 
 class Wizard(Entity,Bullet):
     def __init__(self):
-        super().__init__(self,x=600,y=0)
-        self.surf = pygame.image.load("Program 4/Images/wizard.png").convert()
+        super().__init__()
+        self.image = pygame.image.load("Program 4/Images/wizard.png").convert()
+        self.image.set_colorkey((0,0,0), RLEACCEL)
+        self.image = pygame.transform.scale(self.image,(150,150))
+        self.y = HEIGHT - self.image.get_size()[1]
+        self.x = WIDTH/2
+        self.size = self.image.get_size()[1]
         
     def goLeft(self,value=1):
         self.x -= value
@@ -90,19 +106,26 @@ class Wizard(Entity,Bullet):
             self.goLeft()
         if pressedKeys[K_SPACE]:
             self.shoot()
-
-class StartGame:
-    def get_position(self):
+    
+    def shoot(self):
+        bullet = Bullet(self.x,self.y)
+        bullet.update()
+        
+        
+        
+    def getPosition(self):
         Left_x = self.x - self.size/2
         Left_y = self.y - self.size/2
         return Left_x, Left_y
+
+class StartGame:
+    pass
     
 
 ################## MAIN ########################
 # Initialize pygame library and display
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
 # Create a person object
 w = Wizard()
 RUNNING = True  # A variable to determine whether to get out of the
@@ -126,8 +149,8 @@ while (RUNNING):
     w.update(pressedKeys)
 
     # fill the screen with a color
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     # then transfer the person to the screen
-    screen.blit(p.surf, p.getPosition())
+    screen.blit(w.image, w.getPosition())
     pygame.display.flip()
 
