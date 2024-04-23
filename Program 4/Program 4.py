@@ -82,7 +82,7 @@ class Bullet:
 class Wizard(Entity,Bullet):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("Program 4/Images/wizard.png").convert()
+        self.image = pygame.image.load("Program 4/Images/wizard.png").convert_alpha()
         self.image.set_colorkey((0,0,0), RLEACCEL)
         self.image = pygame.transform.scale(self.image,(150,150))
         self.y = HEIGHT - self.image.get_size()[1]
@@ -149,7 +149,7 @@ while (RUNNING):
     w.update(pressedKeys)
 
     # fill the screen with a color
-    screen.fill(BLACK)
+    screen.fill(WHITE)
     # then transfer the person to the screen
     screen.blit(w.image, w.getPosition())
     pygame.display.flip()
