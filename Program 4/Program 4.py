@@ -1,5 +1,6 @@
 import pygame
 from Constants import *
+<<<<<<< HEAD
 
 class Entity:
     def __init__(self):
@@ -47,15 +48,22 @@ class Entity:
         
 '''
 class Spider(Entity):
+=======
+import time
+        
+class Spider(pygame.sprite.Sprite):
+>>>>>>> 1285bb15f429ab853d6a94371ca8426c654d22f8
     def __init__(self):
         #set initial x to be on left side of screen
         #have the spider always above the player
-        super().__init__(self,x=0,y=200)
-        self.surf = pygame.image.load("Program 4/Images/spider.png").convert()
-        
+        super().__init__()
+        self.image = pygame.image.load("Program 4/Images/spider.png").convert()
+        self.rect = self.image.get_rect()
+        self.setRandomPosition()
         
     def setRandomPosition(self):
         #have spider go from random position 
+<<<<<<< HEAD
         self.y = randint(200, HEIGHT)
     
     def move(self):
@@ -77,24 +85,48 @@ class Bullet(Entity):
 
 class Wizard(Entity):
     lives = 3
+=======
+        self.rect.left = 0
+        self.rect.centery = randint(100,HEIGHT)
+    
+    def update(self):
+        self.rect.x += 3
+        if(self.rect.right > WIDTH):
+            self.setRandomPosition()
+            
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        self.image = pygame.Surface((1,2))
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.center = (x,y)
+    
+    def update(self):
+        self.rect.y -= 1
+        if self.rect.bottom < 0:
+            self.kill()
+        
+
+class Wizard(pygame.sprite.Sprite):
+    lives = 3
+    
+>>>>>>> 1285bb15f429ab853d6a94371ca8426c654d22f8
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("Program 4/Images/wizard.png").convert_alpha()
         self.image.set_colorkey((0,0,0), RLEACCEL)
         self.image = pygame.transform.scale(self.image,(150,150))
-        self.y = HEIGHT - self.image.get_size()[1]
-        self.x = WIDTH/2
-        self.size = self.image.get_size()[1]
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH/2, HEIGHT - self.image.get_size()[1])
         
     def goLeft(self,value=1):
-        self.x -= value
+        if(value>0):
+            self.rect.x -= value
     def goRight(self,value=1):
-        self.x += value
-        
-    def get_position(self):
-        Left_x = self.x - self.size/2
-        Left_y = self.y - self.size/2
-        return Left_x, Left_y
+        if(value<WIDTH):
+            self.rect.x += value
     
     def update(self, pressedKeys):
         if pressedKeys[K_RIGHT]:
@@ -105,15 +137,9 @@ class Wizard(Entity):
             self.shoot()
     
     def shoot(self):
-        bullet = Bullet(self.x,self.y)
-        bullet.update()
-        
-        
-        
-    def getPosition(self):
-        Left_x = self.x - self.size/2
-        Left_y = self.y - self.size/2
-        return Left_x, Left_y
+        bullet = Bullet(self.rect.centerx,self.rect.top)
+        other_sprites.add(bullet)
+
 
 
     
@@ -122,8 +148,18 @@ class Wizard(Entity):
 # Initialize pygame library and display
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-# Create a person object
+
+player_sprites = pygame.sprite.Group()
 w = Wizard()
+player_sprites.add(w)
+
+other_sprites = pygame.sprite.Group()
+bullets = pygame.sprite.Group()
+spiders = pygame.sprite.Group()
+other_sprites.add(spiders)
+other_sprites.add(bullets)
+
+
 RUNNING = True  # A variable to determine whether to get out of the
                 # infinite game loop
 
@@ -142,12 +178,22 @@ while (RUNNING):
     
     # and then send that dictionary to the Person object for them to
     # update themselves accordingly.
-    w.update(pressedKeys)
+    player_sprites.update(pressedKeys)
+    other_sprites.update()
+    bullets.update()
 
     # fill the screen with a color
     screen.fill(WHITE)
+<<<<<<< HEAD
     # then transfer the person to the screen
     screen.blit(w.image, w.getPosition())
     #Spider.draw(screen)
+=======
+    player_sprites.draw(screen)
+    other_sprites.draw(screen)
+    spiders.draw(screen)
+>>>>>>> 1285bb15f429ab853d6a94371ca8426c654d22f8
     pygame.display.flip()
+    # then transfer the person to the screen
+    #screen.blit(w.image, w.getPosition())
 
