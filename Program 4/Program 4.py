@@ -14,8 +14,8 @@ class Spider(pygame.sprite.Sprite):
         
     def setRandomPosition(self):
         #have spider go from random position 
-        self.rect.left = 0
-        self.rect.centery = randint(0,HEIGHT)
+        self.rect.center = (0,randint(0,HEIGHT-200))
+        #self.rect.centery = randint(0,HEIGHT)
     
     def update(self):
         self.rect.x += 3
@@ -68,7 +68,7 @@ class Wizard(pygame.sprite.Sprite):
     
     def shoot(self):
         bullet = Bullet(self.rect.centerx,self.rect.top)
-        other_sprites.add(bullet)
+        bullets.add(bullet)
         
         
 
@@ -85,11 +85,11 @@ player_sprites = pygame.sprite.Group()
 w = Wizard()
 player_sprites.add(w)
 
-other_sprites = pygame.sprite.Group()
+enemies = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
-spiders = pygame.sprite.Group()
-other_sprites.add(spiders)
-other_sprites.add(bullets)
+spiders = Spider()
+enemies.add(spiders)
+
 
 
 RUNNING = True  # A variable to determine whether to get out of the
@@ -111,14 +111,14 @@ while (RUNNING):
     # and then send that dictionary to the Person object for them to
     # update themselves accordingly.
     player_sprites.update(pressedKeys)
-    other_sprites.update()
     bullets.update()
-    spiders.update()
+    enemies.update()
 
     # fill the screen with a color
     screen.fill(WHITE)
     player_sprites.draw(screen)
-    other_sprites.draw(screen)
+    enemies.draw(screen)
+    bullets.draw(screen)
     pygame.display.flip()
     # then transfer the person to the screen
     #screen.blit(w.image, w.getPosition())
