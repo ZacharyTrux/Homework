@@ -46,7 +46,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.center = (x,y)
     
     def update(self):
-        self.rect.y -= 10
+        self.rect.y -= 12
         
         if self.rect.bottom < 0:
             # gets rid of the bullet from the sprite group
@@ -66,13 +66,13 @@ class Wizard(pygame.sprite.Sprite):
         
     def goLeft(self):
         # changes players x coordinates to a set speed
-        self.rect.move_ip(-5,0)
+        self.rect.move_ip(-8,0)
         if(self.rect.centerx < 0):
             # stops the player if it reaches the left side of the screen 
             self.rect.centerx = 0 
 
     def goRight(self):
-        self.rect.move_ip(5,0)
+        self.rect.move_ip(8,0)
         if(self.rect.centerx > WIDTH):
             # stops the player if it reaches the right side of the screen 
             self.rect.centerx = WIDTH
