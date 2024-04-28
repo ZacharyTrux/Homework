@@ -5,8 +5,6 @@ from Constants import *
 #make the spider sukana 
 #profit 
 
-
-
 #set the frame rate of the screen to 60 (helps with smoothness of game)
 clock = pygame.time.Clock()
 FPS = 60
@@ -100,40 +98,12 @@ class Wizard(pygame.sprite.Sprite):
     def shoot(self):
         bullet = Bullet(self.rect.centerx,self.rect.top)
         bullets.add(bullet)
-        
-        
 
 
 
-    
 
-################## MAIN ########################
-# Initialize pygame library and display
-################################################
 
-# set up screen
-pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-# creates the wizard sprite group and adds the player into it
-player_sprites = pygame.sprite.Group()
-wizard = Wizard()
-player_sprites.add(wizard)
-
-# creates the enemies group which the spider will be added into
-enemies = pygame.sprite.Group()
-spiders = Spider()           
-enemies.add(spiders)
-
-# creates the bullets sprite group which will add bullets when the player shoots 
-bullets = pygame.sprite.Group()
-
-global scores
-score = 0
-
-global lives
-lives = 3
-
+# seperate function from classes         
 def collided(enemies,bullets):
     global score
     
@@ -150,7 +120,35 @@ def collided(enemies,bullets):
         for bullet in bullet_list:
             bullet.kill()
         
-        score+= 1
+        score += 1
+        
+################## MAIN ########################
+# Initialize pygame library and display
+################################################
+
+# set up screen
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+global scores
+score = 0
+
+global lives
+lives = 3
+
+# creates the wizard sprite group and adds the player into it
+player_sprites = pygame.sprite.Group()
+wizard = Wizard()
+player_sprites.add(wizard)
+
+# creates the enemies group which the spider will be added into
+enemies = pygame.sprite.Group()
+spiders = Spider()           
+enemies.add(spiders)
+
+# creates the bullets sprite group which will add bullets when the player shoots 
+bullets = pygame.sprite.Group()
+
 
 RUNNING = True  # A variable to determine whether to get out of the
                 # infinite game loop
@@ -199,6 +197,7 @@ while (RUNNING):
         
         # account for sprites colliding
         collided(enemies,bullets)
+
 
     # inform player they lost
     elif(lives == 0):
