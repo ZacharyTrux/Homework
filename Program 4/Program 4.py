@@ -181,6 +181,9 @@ while (RUNNING):
     scores_display = my_font.render(f"Score: {score}",False, (0,0,0))
     gOver_display = Over_font.render(f"GAME OVER!!!",False,(0,0,0))
     
+    # fill the screen with a color
+    screen.fill(WHITE)
+    
     # loops game if player still has lives 
     if(lives > 0):
         #player_sprites.update(pressedKeys)
@@ -188,8 +191,6 @@ while (RUNNING):
         bullets.update()
         enemies.update()
         
-        # fill the screen with a color
-        screen.fill(WHITE)
         
         # put sprites on the screen
         player_sprites.draw(screen)
@@ -201,7 +202,12 @@ while (RUNNING):
 
     # inform player they lost
     elif(lives == 0):
-            screen.blit(gOver_display, (200, HEIGHT-500))  
+        # put sprites on the screen
+        player_sprites.draw(screen)
+        enemies.draw(screen)
+        bullets.draw(screen)
+        
+        screen.blit(gOver_display, (200, HEIGHT-500))  
     
     # puts the health and score onto the screen
     screen.blit(lives_display, (0,HEIGHT-750))
