@@ -130,9 +130,11 @@ def collided(enemies,bullets):
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
+# keep track of player killing spider
 global scores
 score = 0
 
+# keep track of spider attacking player
 global lives
 lives = 3
 
