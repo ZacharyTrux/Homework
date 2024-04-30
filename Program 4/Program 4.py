@@ -177,7 +177,6 @@ while (RUNNING):
     my_font = pygame.font.SysFont('Comic Sans MS', 30)
     Over_font = pygame.font.SysFont('Comic Sans MS', 100)
     lives_display = my_font.render(f"Health: {lives}",False,(0,0,0))
-    death_display = my_font.render(f"Health: {0}",False,(0,0,0))
     scores_display = my_font.render(f"Score: {score}",False, (0,0,0))
     gOver_display = Over_font.render(f"GAME OVER!!!",False,(0,0,0))
     
