@@ -29,8 +29,8 @@ class Spider(pygame.sprite.Sprite):
     def update(self):
         global lives
         
-        self.rect.x += 10
-        if(self.rect.right > WIDTH):
+        self.rect.x += 8
+        if(self.rect.left > WIDTH):
             # reset spider and change lives count
             self.setRandomPosition()
             lives -= 1
@@ -66,13 +66,13 @@ class Wizard(pygame.sprite.Sprite):
         
     def goLeft(self):
         # changes players x coordinates to a set speed
-        self.rect.move_ip(-8,0)
+        self.rect.move_ip(-10,0)
         if(self.rect.centerx < 0):
             # stops the player if it reaches the left side of the screen 
             self.rect.centerx = 0 
 
     def goRight(self):
-        self.rect.move_ip(8,0)
+        self.rect.move_ip(10,0)
         if(self.rect.centerx > WIDTH):
             # stops the player if it reaches the right side of the screen 
             self.rect.centerx = WIDTH
@@ -96,8 +96,8 @@ class Wizard(pygame.sprite.Sprite):
     
     # creates a bullet and adds it to the bullets sprite group (taking in x and y cordinates from wizard)
     def shoot(self):
-        bullet = Bullet(self.rect.centerx,self.rect.top)
-        bullets.add(bullet)
+        shell = Bullet(self.rect.centerx,self.rect.top)
+        bullets.add(shell)
 
 
 
@@ -113,12 +113,12 @@ def collided(enemies,bullets):
         # gets the spider out of the group
         enemy.kill()
         # create new spider to run across screen
-        spiders = Spider()
-        enemies.add(spiders)
+        new_spider = Spider()
+        enemies.add(new_spider)
         
         # gets rid of the bullet which collided in the list 
-        for bullet in bullet_list:
-            bullet.kill()
+        for shell in bullet_list:
+            shell.kill()
         
         score += 1
         
@@ -145,8 +145,8 @@ player_sprites.add(wizard)
 
 # creates the enemies group which the spider will be added into
 enemies = pygame.sprite.Group()
-spiders = Spider()           
-enemies.add(spiders)
+initial_spider = Spider()           
+enemies.add(initial_spider)
 
 # creates the bullets sprite group which will add bullets when the player shoots 
 bullets = pygame.sprite.Group()
