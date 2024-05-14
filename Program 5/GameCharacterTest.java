@@ -5,8 +5,6 @@
  * the GameCharacter class.
  */
 
-import GameCharacter;
-
 class GameCharacterTest 
 {
     public static void main(String [] args)

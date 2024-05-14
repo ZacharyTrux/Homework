@@ -1,14 +1,19 @@
 
+
 public class GameCharacter{
     private String name;
     private int lives;
-    private String[] inventory;
+    private String[] inventory = new String[5];
     private final int MAXLIVES = 5;
     
     public GameCharacter(){
         this.name = "Sam Sung";
         this.lives = MAXLIVES;
-        this.inventory = new String[5];
+    }
+
+    public GameCharacter(String name, int lives){
+        this.name = name;
+        setLives(lives);
     }
 
     public String getName(){
@@ -23,6 +28,17 @@ public class GameCharacter{
     public void setLives(int num){
         if(0 <= num && num <= MAXLIVES){
             this.lives = num;
+        }
+        else{
+            this.lives = MAXLIVES;
+        }
+    }
+    public String[] getInventory(){
+        return inventory;
+    }
+    public void setInventory(String[] list){
+        {
+            this.inventory = list;
         }
     }
 
@@ -68,7 +84,7 @@ public class GameCharacter{
     }
 
     public void drop(String item){
-        for(int i=0;i<5;i++){
+        for(int i=0; i<5; i++){
             if(this.inventory[i] == item){
                 this.inventory[i] = null;
                 break;
@@ -77,12 +93,14 @@ public class GameCharacter{
     }
 
     public String toString(){
-        String str = "Name:\t" + this.name + "\nLives:\t" + this.lives + "Inventory:\t";
-        for(int i=0;i<5;i++){
-            if(this.inventory[i] == null){
-                str += inventory[i];
+        String str = "Name:\t" + this.name + "\nLives:\t" + this.lives + "\nInventory:\t";
+        for(int i=0; i<5; i++){
+            if(this.inventory[i] != null){
+                str += inventory[i]+", ";
             }
         }
+
+        str += "\n";
         return str;
     }
 }
