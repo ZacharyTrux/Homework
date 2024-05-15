@@ -27,14 +27,14 @@ public class GameCharacter{
 
     // Getters and setters for private variables
     public String getName(){
-        return name;
+        return this.name;
     }
     public void setName(String newName){
         this.name = newName;
     }
 
     public int getLives(){
-        return lives;
+        return this.lives;
     }
     public void setLives(int num){
         if(0 <= num && num <= MAXLIVES){
@@ -46,11 +46,11 @@ public class GameCharacter{
     }
 
     public String[] getInventory(){
-        return inventory;
+        return this.inventory;
     }
-    public void setInventory(String[] list){
+    public void setInventory(String[] array){
         {
-            this.inventory = list;
+            this.inventory = array;
         }
     }
 
@@ -74,7 +74,7 @@ public class GameCharacter{
     public int sizeOfInventory(){
         int num = 0;
         for (int i = 0; i < this.inventory.length; i++){
-            if(inventory[i] != null){
+            if(this.inventory[i] != null){
                 num++;
             }
         }
@@ -118,7 +118,7 @@ public class GameCharacter{
         String str = "Name:\t" + this.name + "\nLives:\t" + this.lives + "\nInventory:\t";
         for(int i = 0; i < this.inventory.length; i++){
             if(this.inventory[i] != null){
-                str += inventory[i]+", ";
+                str += this.inventory[i]+", ";
             }
         }
 
