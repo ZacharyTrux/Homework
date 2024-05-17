@@ -13,13 +13,13 @@ public class GameCharacter{
     private String[] inventory = new String[5];
     private final int MAXLIVES = 5;
     
-    // test class which assigns a default name if the constructor is called 
+    // Constructor which assigns a default name if the constructor is called 
     public GameCharacter(){
         this.name = "Sam Sung";
         this.lives = MAXLIVES;
     }
 
-    // sets the private variables of the character to a given value
+    // Overloaded Constructor
     public GameCharacter(String name, int lives){
         this.name = name;
         setLives(lives);
@@ -37,7 +37,7 @@ public class GameCharacter{
         return this.lives;
     }
     public void setLives(int num){
-        if(0 <= num && num <= MAXLIVES){
+        if (0 <= num && num <= MAXLIVES){
             this.lives = num;
         }
         else{
@@ -63,8 +63,8 @@ public class GameCharacter{
     public boolean hasWeapon(){
         // iterates through each part of inventory checking for a specific items
         for (String weapon: this.inventory){
-            if(weapon == "knife" || weapon == "gun"){
-                return true;
+            if (weapon == "knife" || weapon == "gun"){
+              return true;
             }
         }
         return false;
@@ -74,7 +74,7 @@ public class GameCharacter{
     public int sizeOfInventory(){
         int num = 0;
         for (int i = 0; i < this.inventory.length; i++){
-            if(this.inventory[i] != null){
+            if (this.inventory[i] != null){
                 num++;
             }
         }
@@ -88,15 +88,15 @@ public class GameCharacter{
 
     // check player's lives and get subtract a life if greater than 0
     public void damage(){
-        if(isAlive()){
+        if (isAlive()){
             this.lives -= 1;
         }
     }
 
     // add items into the inventory to the first null(empty) spot found
     public void pickUp(String item){
-        for(int i = 0; i < this.inventory.length; i++){
-            if(this.inventory[i] == null){
+        for (int i = 0; i < this.inventory.length; i++){
+            if (this.inventory[i] == null){
                 this.inventory[i] = item;
                 break;
             }
@@ -105,8 +105,8 @@ public class GameCharacter{
 
     // gets rid of the given item from the inventory and makes the spot open again
     public void drop(String item){
-        for(int i = 0; i < this.inventory.length; i++){
-            if(this.inventory[i] == item){
+        for (int i = 0; i < this.inventory.length; i++){
+            if (this.inventory[i] == item){
                 this.inventory[i] = null;
                 break;
             }
@@ -116,8 +116,8 @@ public class GameCharacter{
     // returns a string which correctly formats all player information
     public String toString(){
         String str = "Name:\t" + this.name + "\nLives:\t" + this.lives + "\nInventory:\t";
-        for(int i = 0; i < this.inventory.length; i++){
-            if(this.inventory[i] != null){
+        for (int i = 0; i < this.inventory.length; i++){
+            if (this.inventory[i] != null){
                 str += this.inventory[i]+", ";
             }
         }
