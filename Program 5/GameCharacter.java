@@ -61,7 +61,6 @@ public class GameCharacter{
 
     // flag to check if character has any weapon items
     public boolean hasWeapon(){
-        // iterates through each part of inventory checking for a specific items
         for (String weapon: this.inventory){
             if (weapon == "knife" || weapon == "gun"){
               return true;
@@ -70,7 +69,7 @@ public class GameCharacter{
         return false;
     }
 
-    // iterate through the inventory returning spaces taken up except for null spots 
+    // iterate through the inventory returning spaces taken up by something other than null 
     public int sizeOfInventory(){
         int num = 0;
         for (int i = 0; i < this.inventory.length; i++){
@@ -81,12 +80,12 @@ public class GameCharacter{
         return num;
     }
 
-    // reset the player's lives
+    // account for the character restoring their health
     public void heal(){
         this.lives = MAXLIVES;
     }
 
-    // check player's lives and get subtract a life if greater than 0
+    // account for the character being attacked 
     public void damage(){
         if (isAlive()){
             this.lives -= 1;
@@ -103,7 +102,7 @@ public class GameCharacter{
         }
     }
 
-    // gets rid of the given item from the inventory and makes the spot open again
+    // gets rid of the given item from the inventory and makes the spot "open" or null again
     public void drop(String item){
         for (int i = 0; i < this.inventory.length; i++){
             if (this.inventory[i] == item){
@@ -113,7 +112,7 @@ public class GameCharacter{
         }
     }
 
-    // returns a string which correctly formats all player information
+    // returns a string which correctly formats all character information
     public String toString(){
         String str = "Name:\t" + this.name + "\nLives:\t" + this.lives + "\nInventory:\t";
         for (int i = 0; i < this.inventory.length; i++){
