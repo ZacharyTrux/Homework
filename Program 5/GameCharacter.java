@@ -13,7 +13,7 @@ public class GameCharacter{
     private String[] inventory = new String[5];
     private final int MAXLIVES = 5;
     
-    // Constructor which assigns a default name if the constructor is called 
+    // Default Constructor 
     public GameCharacter(){
         this.name = "Sam Sung";
         this.lives = MAXLIVES;
